@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Valentine 💖</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: "Poppins", sans-serif;
+        overflow: hidden;
+      }
+
+      #surpriseOverlay {
+        position: fixed;
+        inset: 0;
+        background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .surprise-box {
+        position: relative;
+        background: white;
+        padding: 40px 50px;
+        border-radius: 25px;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 1s ease;
+      }
+
+      .surprise-box img {
+        width: 220px;
+        margin: 20px 0;
+      }
+
+      #nextStep {
+        margin-top: 25px;
+        padding: 14px 35px;
+        border: none;
+        border-radius: 30px;
+        background: #ff4d6d;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      .container {
+        display: none;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(12px);
+        padding: 50px 70px;
+        border-radius: 30px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 1.5s ease;
+        position: relative;
+        max-width: 500px;
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        color: #b5173c;
+        margin-bottom: 40px;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      button {
+        padding: 16px 45px;
+        font-size: 18px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      button:hover {
+        transform: scale(1.1);
+      }
+
+      #yes {
+        background: linear-gradient(135deg, #ff4d6d, #ff758f);
+        color: white;
+        margin-right: 20px;
+        box-shadow: 0 10px 25px rgba(255, 77, 109, 0.5);
+      }
+
+      #no {
+        background: #6c757d;
+        color: white;
+        position: absolute;
+      }
+
+      #message {
+        font-size: 2.2rem;
+        color: #ff2f6e;
+        margin-top: 30px;
+        display: none;
+        animation: pop 1s ease forwards;
+      }
+
+      .heart {
+        position: fixed;
+        top: -20px;
+        font-size: 24px;
+        animation: fall 4s linear infinite;
+      }
+      #no {
+        position: fixed;
+        pointer-events: none;
+      }
+      #bear {
+        font-size: 90px;
+        margin-bottom: 15px;
+        animation: bearFloat 3s ease-in-out infinite;
+        transition: transform 0.6s ease;
+      }
+
+      .happy-bear {
+        transform: scale(1.3);
+        animation: happyJump 0.6s ease infinite alternate;
+      }
+      #bear-static {
+        font-size: 90px;
+        margin-bottom: 15px;
+        animation: bearFloat 3s ease-in-out infinite;
+      }
+
+      #bear-dance {
+        width: 220px;
+        display: none;
+        margin: 20px auto;
+      }
+
+      @keyframes bearFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes bearFloat {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes happyJump {
+        from {
+          transform: translateY(0) scale(1.3);
+        }
+        to {
+          transform: translateY(-12px) scale(1.35);
+        }
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-10px) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-15px);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+      /* 📱 Mobile-first adjustments */
+      @media (max-width: 600px) {
+        .surprise-box {
+          width: 90%;
+          padding: 30px 20px;
+          border-radius: 20px;
+        }
+
+        .surprise-box h2 {
+          font-size: 1.4rem;
+          line-height: 1.4;
+        }
+
+        #nextStep {
+          width: 100%;
+          padding: 16px;
+          font-size: 16px;
+          margin-top: 25px;
+        }
+
+        iframe,
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+      }
+
+      #surpriseOverlay {
+        padding: 20px;
+      }
+      #surpriseOverlay {
+        backdrop-filter: blur(2px);
+      }
+
+      .typing::after {
+        content: "|";
+        animation: blink 1s infinite;
+        margin-left: 4px;
+        opacity: 0.6;
+      }
+
+      @keyframes blink {
+        0%,
+        50% {
+          opacity: 1;
+        }
+        51%,
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* 😄 Tease wiggle animation */
+      @keyframes teaseWiggle {
+        0% {
+          transform: rotate(0deg);
+        }
+        25% {
+          transform: rotate(2deg);
+        }
+        50% {
+          transform: rotate(-2deg);
+        }
+        75% {
+          transform: rotate(1deg);
+        }
+        100% {
+          transform: rotate(0deg);
+        }
+      }
+
+      .wiggle {
+        animation: teaseWiggle 0.4s ease-in-out infinite;
+      }
+      /* ❌ No button */
+      .no-btn {
+        margin-top: 15px;
+        background: transparent;
+        border: none;
+        color: #b5173c;
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0.7;
+        position: relative;
+        z-index: 5;
+      }
+
+      .no-btn:hover {
+        opacity: 1;
+      }
+
+      /* ⚠️ Fun warning bubble */
+      .no-warning {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.85);
+        background: #ff4d6d;
+        color: white;
+        padding: 22px 30px;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: 600;
+        text-align: center;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 30;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+        max-width: 85%;
+      }
+
+      @keyframes popIn {
+        0% {
+          transform: translate(-50%, -50%) scale(0.7);
+          opacity: 0;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* Shake animation */
+      @keyframes shake {
+        0% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-4px);
+        }
+        50% {
+          transform: translateX(4px);
+        }
+        75% {
+          transform: translateX(-3px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      /* 🌫 Full-page NO overlay */
+      #fullNoOverlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.35);
+        backdrop-filter: blur(6px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 99999;
+        transition: opacity 0.3s ease;
+      }
+
+      /* 💬 Big warning message */
+      .full-no-message {
+        background: #ff4d6d;
+        color: white;
+        padding: 30px 40px;
+        border-radius: 35px;
+        font-size: 22px;
+        font-weight: 600;
+        text-align: center;
+        max-width: 85%;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+        animation: popBig 0.4s ease;
+      }
+
+      /* 🎬 Pop animation */
+      @keyframes popBig {
+        0% {
+          transform: scale(0.7);
+          opacity: 0;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      /* 📱 MOBILE RESPONSIVE */
+      @media (max-width: 768px) {
+        body {
+          padding: 20px;
+          align-items: center;
+        }
+
+        .container {
+          width: 100%;
+          padding: 30px 20px;
+          border-radius: 25px;
+        }
+
+        h1 {
+          font-size: 1.6rem;
+          line-height: 1.4;
+        }
+
+        #message {
+          font-size: 1.4rem;
+        }
+
+        #bear-static {
+          font-size: 70px;
+        }
+
+        #bear-dance {
+          width: 160px;
+        }
+
+        button {
+          padding: 14px 22px;
+          font-size: 16px;
+          margin-top: 10px;
+        }
+
+        #yes {
+          margin-right: 10px;
+        }
+
+        #no {
+          font-size: 14px;
+        }
+
+        .surprise-box {
+          width: 100%;
+          padding: 25px 18px;
+        }
+
+        .surprise-box h2 {
+          font-size: 1.3rem;
+        }
+
+        .full-no-message {
+          font-size: 18px;
+          padding: 20px;
+        }
+      }
+
+      /* 📱 EXTRA SMALL DEVICES */
+      @media (max-width: 420px) {
+        h1 {
+          font-size: 1.4rem;
+        }
+
+        #bear-static {
+          font-size: 60px;
+        }
+
+        #bear-dance {
+          width: 140px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Surprise Overlay -->
+    <div id="surpriseOverlay">
+      <div class="surprise-box">
+        <div id="surpriseContent"></div>
+        <button id="nextStep">Next 💝</button>
+
+        <button id="surpriseNoBtn" class="no-btn">No 🙄</button>
+      </div>
+      <!-- Full page NO warning -->
+      <div id="fullNoOverlay">
+        <div class="full-no-message">Saying no to me is not an option 😌</div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="bear-static">🧸💖</div>
+
+      <img
+        id="bear-dance"
+        src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGVqem9nNHl2aHRsdmt3bWZqeDBma2NuZHUzNng4eWI0bXc0aXRhaiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/NxC8VtyxqhMtpLoEEN/giphy.gif"
+      />
+
+      <h1 id="question">
+        Will you be my Valentine, <span id="name">Mansi...</span>? 💕
+      </h1>
+
+      <button id="yes">YES 💖</button>
+      <button id="no">NO 💔</button>
+
+      <div id="message">
+        I can’t wait to make this and every Valentine special with you 💘
+      </div>
+    </div>
+
+    <!-- music -->
+    <audio
+      id="music"
+      src="https://www.bensound.com/bensound-music/bensound-love.mp3"
+    ></audio>
+
+    <script>
+      const overlay = document.getElementById("surpriseOverlay");
+      const content = document.getElementById("surpriseContent");
+      const nextBtn = document.getElementById("nextStep");
+      const mainContainer = document.querySelector(".container");
+
+      const surpriseNoBtn = document.getElementById("surpriseNoBtn");
+      const surpriseNoWarning = document.getElementById("surpriseNoWarning");
+      const fullNoOverlay = document.getElementById("fullNoOverlay");
+
+      let step = 0;
+
+      /* 🌈 Backgrounds per step */
+      const backgrounds = [
+        "linear-gradient(135deg, #ffdde1, #ee9ca7)", // ready
+        "linear-gradient(135deg, #cfd9df, #e2ebf0)", // breathe
+        "linear-gradient(135deg, #e0c3fc, #8ec5fc)", // tease
+        "linear-gradient(135deg, #fbc2eb, #a6c1ee)", // knees
+        "linear-gradient(135deg, #ffecd2, #fcb69f)", // proposal
+      ];
+
+      /* 🧠 Steps */
+      const steps = [
+        {
+          icon: "🎁",
+          text: "Are you ready for a surprise?",
+          button: "Yes, I am!",
+        },
+        {
+          icon: "😌",
+          text: "Hold your breath...",
+          button: "Take a deep breath",
+        },
+        {
+          icon: "😏",
+          text: "Okay… don’t rush… I waited for the right moment too",
+          button: "Still waiting…",
+        },
+        {
+          icon: "🥹",
+          text: "Wait… wait… not yet… let me first get on my knees",
+          button: "Almost there...",
+        },
+        {
+          icon: `
+        <img 
+          src="boykneel.png"
+        
+          style="width:220px; max-width:100%;"
+        >
+      `,
+          text: "Okay… now please look at me 💖",
+          button: "Open 💖",
+        },
+      ];
+
+      /* ✍️ Typing effect */
+      function typeText(element, text, speed = 35) {
+        element.innerHTML = "";
+        element.classList.add("typing");
+
+        let i = 0;
+        const interval = setInterval(() => {
+          element.innerHTML += text[i];
+          i++;
+          if (i >= text.length) {
+            clearInterval(interval);
+            element.classList.remove("typing");
+          }
+        }, speed);
+      }
+
+      /* 🎬 Render step */
+      function renderStep() {
+        overlay.style.background = backgrounds[step];
+        overlay.style.transition = "background 1s ease";
+
+        content.innerHTML = `
+      <div id="stepIcon" style="font-size:70px; margin-bottom:15px; opacity:0;">
+        ${steps[step].icon}
+      </div>
+      <h2 style="margin:0;"></h2>
+    `;
+
+        const textEl = content.querySelector("h2");
+        typeText(textEl, steps[step].text);
+
+        setTimeout(() => {
+          const iconEl = document.getElementById("stepIcon");
+          if (iconEl) iconEl.style.opacity = "1";
+        }, steps[step].text.length * 35);
+
+        nextBtn.innerText = steps[step].button;
+
+        // 👉 NO button only on FIRST step
+        if (step === 0) {
+          surpriseNoBtn.style.display = "inline-block";
+        } else {
+          surpriseNoBtn.style.display = "none";
+        }
+
+        // Wiggle only on tease step
+        if (steps[step].button === "Still waiting…") {
+          nextBtn.classList.add("wiggle");
+        } else {
+          nextBtn.classList.remove("wiggle");
+        }
+      }
+
+      /* 🚀 Start */
+      renderStep();
+
+      /* 👉 NEXT button */
+      nextBtn.addEventListener("click", () => {
+        step++;
+
+        if (step < steps.length) {
+          renderStep();
+        } else {
+          overlay.style.opacity = "0";
+          overlay.style.transition = "opacity 1s ease";
+
+          setTimeout(() => {
+            overlay.style.display = "none";
+            mainContainer.style.display = "block";
+          }, 1000);
+        }
+      });
+
+      /* ❌ NO button warning (first step only) */
+      surpriseNoBtn.addEventListener("click", () => {
+        fullNoOverlay.style.opacity = "1";
+        fullNoOverlay.style.pointerEvents = "auto";
+
+        setTimeout(() => {
+          fullNoOverlay.style.opacity = "0";
+          fullNoOverlay.style.pointerEvents = "none";
+        }, 1500);
+      });
+    </script>
+
+    <script>
+      const noBtn = document.getElementById("no");
+      const yesBtn = document.getElementById("yes");
+      const message = document.getElementById("message");
+      const music = document.getElementById("music");
+
+      // positions
+      let x = window.innerWidth / 2 + 100;
+      let y = window.innerHeight / 2;
+
+      const speed = 4;
+      const safeRadius = 120;
+
+      function moveButton(mouseX, mouseY) {
+        const rect = noBtn.getBoundingClientRect();
+        const btnX = rect.left + rect.width / 2;
+        const btnY = rect.top + rect.height / 2;
+
+        const dx = btnX - mouseX;
+        const dy = btnY - mouseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < safeRadius) {
+          const angle = Math.atan2(dy, dx);
+
+          x += Math.cos(angle) * speed;
+          y += Math.sin(angle) * speed;
+
+          const padding = 10;
+          x = Math.max(
+            padding,
+            Math.min(window.innerWidth - rect.width - padding, x),
+          );
+          y = Math.max(
+            padding,
+            Math.min(window.innerHeight - rect.height - padding, y),
+          );
+
+          noBtn.style.left = x + "px";
+          noBtn.style.top = y + "px";
+        }
+      }
+
+      document.addEventListener("mousemove", (e) => {
+        moveButton(e.clientX, e.clientY);
+      });
+
+      // 👉 TOUCH SUPPORT for mobile
+      document.addEventListener("touchmove", (e) => {
+        const touch = e.touches[0];
+        moveButton(touch.clientX, touch.clientY);
+      });
+
+      const bearStatic = document.getElementById("bear-static");
+      const bearDance = document.getElementById("bear-dance");
+      const question = document.getElementById("question");
+
+      yesBtn.addEventListener("click", () => {
+        question.style.display = "none";
+        yesBtn.style.display = "none";
+        noBtn.style.display = "none";
+        bearStatic.style.display = "none";
+
+        bearDance.style.display = "block";
+
+        message.style.display = "block";
+        music.play();
+        startConfetti();
+      });
+
+      function startConfetti() {
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerText = "💖";
+          heart.style.left = Math.random() * window.innerWidth + "px";
+          heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 5000);
+        }, 200);
+      }
+    </script>
+  </body>
+</html>
